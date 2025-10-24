@@ -1,0 +1,85 @@
+<!doctype html>
+<h3>Gastos Personales</h3>
+<div class="actions">
+<button class="btn" id="addPersonal">Agregar</button>
+<button class="btn-outline" id="exportPDF_personal">Exportar PDF</button>
+</div>
+</div>
+<form id="personalForm" class="grid-form">
+<input type="date" id="perDate" required />
+<input type="text" id="perCategory" placeholder="Categoría" />
+<input type="text" id="perDesc" placeholder="Descripción" />
+<input type="number" id="perAmount" placeholder="Monto" min="0" step="0.01" required />
+<button type="submit" class="btn">Guardar</button>
+</form>
+
+<table class="table" id="personalTable">
+<thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción</th><th>Monto</th><th></th></tr></thead>
+<tbody></tbody>
+<tfoot>
+<tr><td colspan="3">Total</td><td id="personalTotal">$0</td><td></td></tr>
+</tfoot>
+</table>
+</section>
+
+<section id="settings" class="view">
+<div class="view-header">
+<h3>Configuración</h3>
+<div class="actions">
+<button class="btn" id="exportJSON">Exportar JSON</button>
+<label class="btn-outline file">
+Importar JSON
+<input type="file" id="importJSON" accept="application/json" />
+</label>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<h4>Identidad</h4>
+<label>Nombre del negocio <input id="setName" type="text" placeholder="Mi Negocio" /></label>
+<label>Moneda <input id="setCurrency" type="text" value="USD" /></label>
+<div class="logo-upload">
+<img id="logoPreview" src="assets/logo.png" alt="logo" />
+<div>
+<label class="btn file">Subir logo <input type="file" id="setLogo" accept="image/*" /></label>
+<button class="btn-outline" id="delLogo">Eliminar logo</button>
+</div>
+</div>
+<div class="colors">
+<label>Primario <input type="color" id="colorPrimary" value="#0b0b0e" /></label>
+<label>Acento <input type="color" id="colorAccent" value="#C7A24B" /></label>
+<label>Texto <input type="color" id="colorText" value="#ffffff" /></label>
+</div>
+<button class="btn" id="saveSettings">Guardar Configuración</button>
+</div>
+
+<div class="card">
+<h4>Seguridad</h4>
+<label>PIN actual <input type="password" id="pinOld" placeholder="••••" /></label>
+<label>Nuevo PIN <input type="password" id="pinNew" placeholder="••••" /></label>
+<label>Confirmar PIN <input type="password" id="pinNew2" placeholder="••••" /></label>
+<button class="btn" id="changePIN">Cambiar PIN</button>
+<hr />
+<button class="btn-danger" id="resetAll">Restablecer TODO</button>
+</div>
+</div>
+</section>
+
+<section id="login" class="view">
+<div class="login-card">
+<img src="assets/logo.png" alt="logo" />
+<h3 id="loginTitle">Crear PIN</h3>
+<p id="loginHint" class="muted">Protege tu app con un PIN de 4–8 dígitos.</p>
+<input id="loginPIN" type="password" inputmode="numeric" maxlength="8" placeholder="PIN" />
+<input id="loginPIN2" type="password" inputmode="numeric" maxlength="8" placeholder="Confirmar PIN" style="display:none" />
+<button class="btn" id="loginBtn">Continuar</button>
+<p id="loginAttempts" class="muted"></p>
+</div>
+</section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
