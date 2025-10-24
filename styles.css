@@ -1,0 +1,76 @@
+:root{
+.btn-outline{background:transparent; color:var(--text)}
+.btn-danger{background:#b33; color:#fff}
+.btn:active, .btn-outline:active, .nav-btn:active{transform:scale(.98)}
+.file{position:relative; overflow:hidden}
+.file input{position:absolute; inset:0; opacity:0; cursor:pointer}
+
+/* Cards & layout */
+.card{
+background:var(--card); border:2px solid var(--border); border-radius:var(--radius); padding:14px;
+}
+.kpi{display:flex; flex-direction:column; gap:6px}
+.kpi-value{font-size:28px; font-weight:800}
+.dashboard-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+.report-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+.grid-form{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin:12px 0}
+.grid-form input, .grid-form select{background:#15151d; color:var(--text); border:2px solid var(--border); border-radius:8px; padding:10px}
+.grid-form button{grid-column:span 1}
+.logo-upload{display:flex; gap:12px; align-items:center}
+.colors{display:flex; gap:12px; margin-top:8px}
+
+/* Tables */
+.table{width:100%; border-collapse:separate; border-spacing:0; border:2px solid var(--border); border-radius:12px; overflow:hidden}
+.table thead th{background:#121219; padding:10px; border-bottom:2px solid var(--border); text-align:left}
+.table tbody td{padding:10px; border-bottom:1px solid #1a1a22}
+.table tfoot td{background:#0f0f15; padding:10px; font-weight:800}
+.table tr:nth-child(even) td{background:#0f0f14}
+.table .row-actions button{margin-right:6px}
+
+/* Pills/bars */
+.pill-list{display:flex; flex-wrap:wrap; gap:8px}
+.pill{background:#14141b; border:2px solid var(--border); border-radius:999px; padding:6px 10px}
+.bars{display:grid; gap:8px}
+.bar{height:18px; background:#181820; border:2px solid var(--border); border-radius:999px; position:relative}
+.bar>span{position:absolute; top:0; left:0; bottom:0; width:0%; background:var(--accent); border-radius:999px}
+
+.budget-bars{display:grid; gap:10px}
+.budget{
+background:#13131a; border:2px solid var(--border); border-radius:10px; padding:10px;
+}
+.budget .meter{height:14px; background:#171720; border:2px solid var(--border); border-radius:999px; position:relative; margin-top:6px}
+.budget .meter>span{position:absolute; top:0; left:0; bottom:0; width:0%; background:var(--accent); border-radius:999px}
+.budget.over .meter{box-shadow:0 0 0 2px rgba(255,0,0,.3) inset}
+
+/* Login */
+.login-card{max-width:380px; margin:40px auto; text-align:center; background:var(--card); border:2px solid var(--border); border-radius:12px; padding:18px}
+.login-card img{width:64px; height:64px; border:2px solid var(--border); border-radius:10px; margin-bottom:8px}
+.login-card input{width:100%; background:#16161d; border:2px solid var(--border); color:var(--text); border-radius:10px; padding:10px; margin:6px 0}
+
+/* Toasts */
+.toast-container{position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:8px; z-index:5}
+.toast{background:#14141a; border:2px solid var(--border); border-left:6px solid var(--accent); color:var(--text); padding:10px 12px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,.4)}
+
+/* Responsive */
+@media (max-width: 1000px){
+.dashboard-grid, .report-grid{grid-template-columns:1fr}
+.grid-form{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width: 800px){
+:root{--sidebar-w:260px}
+#mobileMenu{display:inline-block}
+.menu-toggle{display:block}
+.sidebar{transform:translateX(-100%); transition:transform .2s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0}
+}
+
+/* Print: ocultar sidebar, fondos sólidos, limpiar */
+@media print{
+.sidebar, .topbar, #toastContainer{display:none !important}
+body{background:#fff; color:#000}
+.card, .table, .pill, .budget{border-color:#000}
+.btn, .btn-outline, .btn-danger{display:none}
+.view{padding:0}
+}
