@@ -382,5 +382,27 @@
 
   <!-- Importante: módulo ES para poder importar Firebase desde la CDN -->
   <script type="module" src="app.js"></script>
+  <script type="module">
+  import { cloudPush, cloudPull } from './app.js';
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+  import { setAutosync, cloud } from './app.js';
+
+  window.app = {
+    cloudPush,
+    cloudPull,
+    cloud,
+    cloudStatus: () => {
+      const auth = getAuth();
+      console.log("Usuario:", auth.currentUser ? {
+        uid: auth.currentUser.uid,
+        email: auth.currentUser.email,
+        name: auth.currentUser.displayName
+      } : null);
+    },
+    setAutosync
+  };
+
+  console.log("✅ API global creada: usa app.cloudPush(), app.cloudPull(), app.cloudStatus()");
+</script>
 </body>
 </html>
