@@ -608,3 +608,15 @@ function init(){
   }
 }
 document.addEventListener('DOMContentLoaded', init);
+// --- Exponer helpers al navegador para pruebas desde la consola ---
+window.cloudPush     = cloudPush;
+window.cloudPull     = cloudPull;
+window.cloudStatus   = () => console.log("Usuario:", auth.currentUser ? {
+  uid: auth.currentUser.uid,
+  email: auth.currentUser.email,
+  name: auth.currentUser.displayName
+} : null);
+window.setAutosync   = (v)=>{ setAutosync(!!v); console.log("Autosync:", !!v); };
+window.stateDump     = () => console.log(JSON.parse(localStorage.getItem('finanzas-state-v2')||'{}'));
+window.saveLocal     = () => save({skipCloud:true});
+window.cloud         = cloud; // por si quieres inspeccionar
