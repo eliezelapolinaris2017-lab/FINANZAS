@@ -1,0 +1,386 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Finanzas • Panel</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" aria-label="Panel lateral de navegación">
+    <div class="brand">
+      <img id="brandLogo" src="assets/logo.png" alt="Logo" />
+      <div class="brand-text">
+        <h1 id="brandName">Mi Negocio</h1>
+        <small>Finanzas</small>
+      </div>
+    </div>
+
+    <nav class="menu" role="navigation">
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Colapsar menú">☰</button>
+      <button type="button" data-target="home" class="nav-btn active">Inicio</button>
+      <button type="button" data-target="expenses" class="nav-btn">Gastos Diarios</button>
+      <button type="button" data-target="reports" class="nav-btn">Reportes</button>
+      <button type="button" data-target="exports" class="nav-btn">Exportaciones en PDF</button>
+      <button type="button" data-target="incomes" class="nav-btn">Entrada de Dinero Diario</button>
+      <button type="button" data-target="payments" class="nav-btn">Pagos</button>
+      <button type="button" data-target="ordinary" class="nav-btn">Gastos Ordinarios</button>
+      <button type="button" data-target="budgets" class="nav-btn">Control de Gastos</button>
+      <button type="button" data-target="personal" class="nav-btn">Gastos Personales</button>
+      <button type="button" data-target="settings" class="nav-btn">Configuración</button>
+      <button type="button" data-target="login" class="nav-btn">Login</button>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main" id="appRoot">
+    <header class="topbar">
+      <div class="left">
+        <button class="ghost" id="mobileMenu" aria-label="Abrir menú">☰</button>
+        <h2 id="viewTitle">Inicio</h2>
+      </div>
+      <div class="right" style="display:flex; gap:8px; flex-wrap:wrap">
+        <button id="btnSignIn" class="btn-outline">Iniciar sesión</button>
+        <button id="btnSignOut" class="btn-outline" style="display:none">Cerrar sesión</button>
+        <button id="printBtn" class="btn-outline">Imprimir / PDF</button>
+      </div>
+    </header>
+
+    <!-- Toasts -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!-- Vistas -->
+    <section id="home" class="view visible" data-title="Inicio">
+      <div class="dashboard-grid">
+        <div class="card kpi" aria-live="polite">
+          <h3>Total Ingresos (mes)</h3>
+          <p id="kpiIncomesMonth" class="kpi-value">$0</p>
+        </div>
+        <div class="card kpi" aria-live="polite">
+          <h3>Total Gastos (mes)</h3>
+          <p id="kpiExpensesMonth" class="kpi-value">$0</p>
+        </div>
+        <div class="card kpi" aria-live="polite">
+          <h3>Balance (mes)</h3>
+          <p id="kpiBalanceMonth" class="kpi-value">$0</p>
+        </div>
+        <div class="card">
+          <h3>Ingresos vs Gastos (12 meses)</h3>
+          <canvas id="chart12" height="180" aria-label="Gráfico de barras 12 meses" role="img"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="expenses" class="view" data-title="Gastos Diarios">
+      <div class="view-header">
+        <h3>Gastos Diarios</h3>
+        <div class="actions">
+          <button class="btn" id="addExpense">Agregar</button>
+          <button class="btn-outline" data-print-view="expenses">Exportar PDF</button>
+        </div>
+      </div>
+      <form id="expenseForm" class="grid-form" autocomplete="off">
+        <label>Fecha<input type="date" id="expDate" required /></label>
+        <label>Categoría
+          <select id="expCategory">
+            <option>Gasolina</option>
+            <option>Comida</option>
+            <option>Otros</option>
+          </select>
+        </label>
+        <label>Descripción<input type="text" id="expDesc" placeholder="Descripción" /></label>
+        <label>Monto<input type="number" id="expAmount" placeholder="0.00" min="0" step="0.01" required /></label>
+        <label>Método
+          <select id="expMethod">
+            <option>Efectivo</option>
+            <option>Tarjeta</option>
+            <option>Transferencia</option>
+          </select>
+        </label>
+        <label>Nota<input type="text" id="expNote" placeholder="(opcional)" /></label>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+
+      <div class="filters">
+        <label>Desde <input type="date" id="fExpFrom"></label>
+        <label>Hasta <input type="date" id="fExpTo"></label>
+        <button class="btn-outline" id="fExpApply">Filtrar</button>
+      </div>
+
+      <div class="card">
+        <h4>Resumen por categoría</h4>
+        <div id="expCategoryTotals" class="pill-list"></div>
+      </div>
+
+      <table class="table" id="expensesTable">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Categoría</th><th>Descripción</th><th>Método</th><th>Monto</th><th>Nota</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr><td colspan="4">Total</td><td id="expensesTotal">$0</td><td colspan="2"></td></tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <section id="reports" class="view" data-title="Reportes">
+      <div class="view-header">
+        <h3>Reportes</h3>
+        <div class="actions">
+          <button class="btn-outline" data-print-view="reports">Exportar PDF</button>
+        </div>
+      </div>
+      <div class="report-grid">
+        <div class="card">
+          <h4>Totales</h4>
+          <ul class="totals-list">
+            <li>Hoy: <strong id="rToday"></strong></li>
+            <li>Semana: <strong id="rWeek"></strong></li>
+            <li>Mes: <strong id="rMonth"></strong></li>
+            <li>Año: <strong id="rYear"></strong></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Ingresos vs Gastos</h4>
+          <div class="bars" id="barsIG" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="exports" class="view" data-title="Exportaciones en PDF">
+      <h3>Exportaciones en PDF</h3>
+      <p>Elige una vista y genera un PDF limpio. (La barra lateral se oculta en impresión).</p>
+      <div class="grid-2">
+        <button class="btn-outline" data-print-view="home">Inicio</button>
+        <button class="btn-outline" data-print-view="expenses">Gastos Diarios</button>
+        <button class="btn-outline" data-print-view="reports">Reportes</button>
+        <button class="btn-outline" data-print-view="incomes">Entrada de Dinero</button>
+        <button class="btn-outline" data-print-view="payments">Pagos</button>
+        <button class="btn-outline" data-print-view="ordinary">Gastos Ordinarios</button>
+        <button class="btn-outline" data-print-view="budgets">Control de Gastos</button>
+        <button class="btn-outline" data-print-view="personal">Gastos Personales</button>
+        <button class="btn-outline" data-print-view="settings">Configuración</button>
+      </div>
+    </section>
+
+    <section id="incomes" class="view" data-title="Entrada de Dinero Diario">
+      <div class="view-header">
+        <h3>Entrada de Dinero Diario</h3>
+        <div class="actions">
+          <button class="btn" id="addIncome">Agregar</button>
+          <button class="btn-outline" data-print-view="incomes">Exportar PDF</button>
+        </div>
+      </div>
+      <form id="incomeForm" class="grid-form" autocomplete="off">
+        <label>Fecha<input type="date" id="incDate" required /></label>
+        <label>Cliente<input type="text" id="incClient" placeholder="Cliente" /></label>
+        <label>Método
+          <select id="incMethod">
+            <option>Efectivo</option>
+            <option>Tarjeta</option>
+            <option>Transferencia</option>
+          </select>
+        </label>
+        <label>Monto<input type="number" id="incAmount" placeholder="0.00" min="0" step="0.01" required /></label>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+
+      <div class="filters">
+        <label>Desde <input type="date" id="fIncFrom"></label>
+        <label>Hasta <input type="date" id="fIncTo"></label>
+        <button class="btn-outline" id="fIncApply">Filtrar</button>
+      </div>
+
+      <table class="table" id="incomesTable">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Cliente</th><th>Método</th><th>Monto</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr><td colspan="3">Total</td><td id="incomesTotal">$0</td><td></td></tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <section id="payments" class="view" data-title="Pagos">
+      <div class="view-header">
+        <h3>Pagos</h3>
+        <div class="actions">
+          <button class="btn" id="addPayment">Agregar</button>
+        </div>
+      </div>
+      <form id="paymentForm" class="grid-form" autocomplete="off">
+        <label>Fecha<input type="date" id="payDate" required /></label>
+        <label>A<input type="text" id="payTo" placeholder="Suplidor/Servicio" /></label>
+        <label>Categoría<input type="text" id="payCategory" placeholder="Categoría" /></label>
+        <label>Monto<input type="number" id="payAmount" placeholder="0.00" min="0" step="0.01" required /></label>
+        <label>Estado
+          <select id="payStatus">
+            <option>Pendiente</option>
+            <option>Pagado</option>
+          </select>
+        </label>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+
+      <div class="card">
+        <h4>Totales</h4>
+        <div id="payTotals" class="pill-list"></div>
+      </div>
+
+      <table class="table" id="paymentsTable">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>A</th><th>Categoría</th><th>Monto</th><th>Estado</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section id="ordinary" class="view" data-title="Gastos Ordinarios">
+      <div class="view-header">
+        <h3>Gastos Ordinarios (Recurrentes)</h3>
+        <div class="actions">
+          <button class="btn" id="addOrd">Agregar</button>
+        </div>
+      </div>
+      <form id="ordinaryForm" class="grid-form" autocomplete="off">
+        <label>Concepto<input type="text" id="ordName" placeholder="Ej. Luz" required /></label>
+        <label>Monto<input type="number" id="ordAmount" placeholder="0.00" min="0" step="0.01" required /></label>
+        <label>Frecuencia
+          <select id="ordFreq">
+            <option value="mensual">Mensual</option>
+            <option value="semanal">Semanal</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Próxima Fecha<input type="date" id="ordNext" required /></label>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+
+      <table class="table" id="ordinaryTable">
+        <thead><tr><th>Concepto</th><th>Monto</th><th>Frecuencia</th><th>Próxima Fecha</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="muted">Cuando llegue la fecha, se genera automáticamente un gasto en "Gastos Diarios" y se mueve la próxima fecha.</p>
+    </section>
+
+    <section id="budgets" class="view" data-title="Control de Gastos">
+      <div class="view-header">
+        <h3>Control de Gastos (Presupuestos)</h3>
+        <div class="actions">
+          <button class="btn" id="addBudget">Agregar</button>
+        </div>
+      </div>
+      <form id="budgetForm" class="grid-form" autocomplete="off">
+        <label>Categoría<input type="text" id="budCategory" placeholder="Categoría" required /></label>
+        <label>Límite<input type="number" id="budLimit" placeholder="0.00" min="0" step="0.01" required /></label>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+      <div id="budgetBars" class="budget-bars"></div>
+    </section>
+
+    <section id="personal" class="view" data-title="Gastos Personales">
+      <div class="view-header">
+        <h3>Gastos Personales</h3>
+        <div class="actions">
+          <button class="btn" id="addPersonal">Agregar</button>
+          <button class="btn-outline" data-print-view="personal">Exportar PDF</button>
+        </div>
+      </div>
+      <form id="personalForm" class="grid-form" autocomplete="off">
+        <label>Fecha<input type="date" id="perDate" required /></label>
+        <label>Categoría<input type="text" id="perCategory" placeholder="Categoría" /></label>
+        <label>Descripción<input type="text" id="perDesc" placeholder="Descripción" /></label>
+        <label>Monto<input type="number" id="perAmount" placeholder="0.00" min="0" step="0.01" required /></label>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+
+      <table class="table" id="personalTable">
+        <thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción</th><th>Monto</th><th></th></tr></thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr><td colspan="3">Total</td><td id="personalTotal">$0</td><td></td></tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <section id="settings" class="view" data-title="Configuración">
+      <div class="view-header">
+        <h3>Configuración</h3>
+        <div class="actions">
+          <button class="btn" id="exportJSON">Exportar JSON</button>
+          <label class="btn-outline file">Importar JSON<input type="file" id="importJSON" accept="application/json" /></label>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Identidad</h4>
+          <label>Nombre del negocio <input id="setName" type="text" placeholder="Mi Negocio" /></label>
+          <label>Moneda <input id="setCurrency" type="text" value="USD" /></label>
+          <div class="logo-upload">
+            <img id="logoPreview" src="assets/logo.png" alt="Vista previa del logo" />
+            <div>
+              <label class="btn file">Subir logo <input type="file" id="setLogo" accept="image/*" /></label>
+              <button class="btn-outline" id="delLogo">Eliminar logo</button>
+            </div>
+          </div>
+          <div class="colors">
+            <label>Primario <input type="color" id="colorPrimary" value="#0b0b0e" /></label>
+            <label>Acento <input type="color" id="colorAccent" value="#C7A24B" /></label>
+            <label>Texto <input type="color" id="colorText" value="#ffffff" /></label>
+          </div>
+          <button class="btn" id="saveSettings">Guardar Configuración</button>
+        </div>
+
+        <div class="card">
+          <h4>Seguridad</h4>
+          <label>PIN actual <input type="password" id="pinOld" placeholder="••••" /></label>
+          <label>Nuevo PIN <input type="password" id="pinNew" placeholder="••••" /></label>
+          <label>Confirmar PIN <input type="password" id="pinNew2" placeholder="••••" /></label>
+          <button class="btn" id="changePIN">Cambiar PIN</button>
+          <hr />
+          <button class="btn-danger" id="resetAll">Restablecer TODO</button>
+        </div>
+
+        <div class="card">
+          <h4>Nube (Firebase)</h4>
+          <p class="muted" id="cloudStatus">No conectado</p>
+          <div class="row" style="display:flex; gap:8px; flex-wrap:wrap">
+            <button class="btn" id="cloudPull">Cargar de la nube</button>
+            <button class="btn" id="cloudPush">Guardar en la nube</button>
+            <label class="pill" style="display:inline-flex;align-items:center;gap:8px">
+              <input type="checkbox" id="cloudAuto" /> Sincronización automática
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="login" class="view" data-title="Login">
+      <div class="login-card">
+        <img src="assets/logo.png" alt="Logo" />
+        <h3 id="loginTitle">Crear PIN</h3>
+        <p id="loginHint" class="muted">Protege tu app con un PIN de 4–8 dígitos.</p>
+        <input id="loginPIN" type="password" inputmode="numeric" maxlength="8" placeholder="PIN" />
+        <input id="loginPIN2" type="password" inputmode="numeric" maxlength="8" placeholder="Confirmar PIN" style="display:none" />
+        <button class="btn" id="loginBtn">Continuar</button>
+        <p id="loginAttempts" class="muted" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Importante: módulo ES para poder importar Firebase desde la CDN -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
