@@ -488,3 +488,6 @@ function init(){
   }catch(e){ console.error(e); toast('Error inicializando la app. Revisa la consola.'); }
 }
 document.addEventListener('DOMContentLoaded', init);
+function wirePersonal(){
+  console.log("⚙️ wirePersonal() aún no implementada, pero ya registrada correctamente.");
+}
