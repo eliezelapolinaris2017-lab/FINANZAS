@@ -112,8 +112,7 @@ const EXPENSE_CATEGORIES = [
   "Papelería",
   "Licencias y Software",
   "Seguros",
-  "Materiales"
-  "Equipos"
+  "Otros"
 ];
 const INCOME_METHODS = [
   "Efectivo",
