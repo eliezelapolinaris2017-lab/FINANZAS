@@ -111,8 +111,7 @@ const EXPENSE_CATEGORIES = [
   "Papelería",
   "Licencias y Software",
   "Seguros",
-  "Equipos",
-  "Materiales",
+  "Equiposy Materiales",
   "Otros"
 ];
 const INCOME_METHODS = ["Efectivo","Tarjeta","Transferencia","ATH Móvil","Cheque"];
