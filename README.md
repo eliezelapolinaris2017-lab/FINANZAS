@@ -1,155 +1,127 @@
-<!-- Banner -->
-<p align="center">
-  <img src="https://raw.githubusercontent.com/eliezelapolinaris2017-lab/FINANZAS/main/assets/logo.png" width="120" alt="Finance Manager Logo">
-</p>
+# 💼 Financial App Web
 
-<h1 align="center">💰 Finance Manager — Cloud-Based Web App</h1>
-<p align="center">
-  <em>Professional financial management dashboard built with pure HTML, CSS & JavaScript</em><br>
-  <em>Aplicación web profesional para gestión financiera, con base de datos en la nube (Firebase)</em>
-</p>
+<div align="center">
+  
+🖤 **Una plataforma moderna de control financiero para personas y negocios.**  
+Gestiona tus ingresos, gastos, balances y reportes desde una app web elegante, rápida y segura.  
+
+</div>
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
-  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"/>
-  <img src="https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=githubpages&logoColor=white"/>
-</p>
+## 🚀 Descripción General
+
+**Financial App Web** es una aplicación web profesional de gestión financiera.  
+Permite registrar y visualizar **ingresos, gastos, pagos, materiales, equipos y presupuestos** con facilidad.  
+Funciona **100% en el navegador**, con o sin conexión, y puede **sincronizar datos en la nube con Firebase**.
+
+Diseñada con una interfaz **negra y dorada**, minimalista y responsiva, ofrece una experiencia moderna e intuitiva.
 
 ---
 
-## 🌍 English Version
+## ✨ Características Principales
 
-### 🧾 Description
-**Finance Manager** is a modern and elegant **financial management web application** built entirely with **HTML, CSS, and JavaScript (Vanilla JS)** — no frameworks required.  
+✅ **Gestión completa de finanzas personales y empresariales**  
+- Control de ingresos, gastos diarios, pagos y gastos personales  
+- Sección de **equipos** y **materiales**  
+- Registro de **gastos ordinarios (recurrentes)**  
+- Control de **presupuestos por categoría**
 
-The app helps you track **expenses, incomes, payments, and budgets**, all within one clean and responsive dashboard.  
-Integrated with **Firebase Authentication** and **Firestore Database**, it ensures secure cloud-based data storage and real-time synchronization between devices.
+✅ **Reportes inteligentes y balances automáticos**  
+- Indicadores de desempeño (KPI) por día, semana, mes y año  
+- Gráficos comparativos de ingresos y gastos  
+- Balance general actualizado en tiempo real  
 
----
+✅ **PDF profesionales en blanco y negro**  
+- Exporta tus tablas y reportes con un clic  
+- Formato limpio, ideal para contabilidad y respaldo  
 
-### 🚀 Features
-- 🔐 **Secure Login:** Google Sign-In + custom PIN protection  
-- ☁️ **Cloud Sync:** Firebase Firestore for real-time data  
-- 💾 **Offline Mode:** LocalStorage backup when offline  
-- 💸 **Expense & Income Tracking:** Daily operations with filters  
-- 📊 **Reports Dashboard:** Summaries by day, week, month, and year  
-- ⚙️ **Custom Configuration:** Business name, colors, logo, and currency  
-- 🧾 **Data Export:** PDF and JSON backups  
-- 📱 **Responsive Design:** Works on desktop, tablet, and mobile  
-- 🧠 **No Frameworks:** 100 % pure JavaScript, deployable on GitHub Pages  
+✅ **Firebase Cloud + Modo Offline**  
+- Sincronización segura en la nube con Firestore  
+- Autenticación con Google  
+- Funciona incluso sin conexión  
 
----
-
-### 🧰 Tech Stack
-| Layer | Technology |
-|-------|-------------|
-| **Frontend** | HTML5 · CSS3 · JavaScript (Vanilla JS) |
-| **Cloud Database** | Firebase Firestore |
-| **Authentication** | Firebase Auth (Google + PIN System) |
-| **Hosting** | GitHub Pages |
-| **Version Control** | Git + GitHub |
+✅ **Interfaz editable y adaptable**  
+- Edición por fila en todas las tablas  
+- Formularios y balances ubicados arriba para mayor claridad  
+- Tema personalizable (color, acento, logo y moneda)
 
 ---
 
-### 📁 Project Structure
-/ (root)
-├── index.html
-├── styles.css
-├── app.js
-├── README.md
-└── assets/
-└── logo.png
----
+## 🧩 Tecnologías
 
-### 🔗 Live Demo
-👉 **Try it now:** [https://eliezelapolinaris2017-lab.github.io/FINANZAS/](https://eliezelapolinaris2017-lab.github.io/FINANZAS/)
-
----
-
-### 🧩 Future Enhancements
-- 📱 Progressive Web App (PWA) support  
-- 🧾 Invoice & client management module  
-- 🔔 Daily summary email notifications  
-- 📈 Multi-user roles (admin / accountant)  
-
----
-
-### 👤 Author
-**Eliezel Apolinaris**  
-Front-End Developer | Firebase | Cloud Web Apps  
-📧 *[add your email here]*  
-🌐 [GitHub Profile](https://github.com/eliezelapolinaris2017-lab)
-
----
-
-### 🪪 License
-Released under the **MIT License** — free for personal and commercial use with attribution.  
-
----
-
-## 🇪🇸 Versión en Español
-
-### 🧾 Descripción
-**Finance Manager** es una **aplicación web moderna de gestión financiera**, creada con **HTML, CSS y JavaScript puro**, sin frameworks.  
-
-Permite registrar y analizar **gastos, ingresos, pagos y presupuestos** en un panel limpio, adaptable y profesional.  
-Integra **Firebase Authentication** y **Firestore Database** para guardar tus datos de forma segura y sincronizarlos automáticamente entre dispositivos.
-
----
-
-### 🚀 Funcionalidades
-- 🔐 **Inicio de sesión seguro:** Google Sign-In + PIN personal  
-- ☁️ **Sincronización en la nube:** Firebase Firestore  
-- 💾 **Modo sin conexión:** Guarda datos localmente  
-- 💸 **Control de gastos e ingresos:** Con filtros por fecha y categoría  
-- 📊 **Reportes:** Totales diarios, semanales, mensuales y anuales  
-- ⚙️ **Configuración personalizada:** Logo, colores y moneda  
-- 🧾 **Exportación:** A PDF o respaldo JSON  
-- 📱 **Diseño adaptable:** Compatible con móviles, tablets y PCs  
-- 🧠 **Código limpio:** 100 % JavaScript puro, listo para GitHub Pages  
-
----
-
-### 🧰 Tecnologías
-| Capa | Tecnología |
+| Área | Tecnología |
 |------|-------------|
-| **Frontend** | HTML5 · CSS3 · JavaScript |
-| **Base de datos** | Firebase Firestore |
-| **Autenticación** | Firebase Auth (Google + PIN) |
-| **Hosting** | GitHub Pages |
-| **Control de versiones** | Git + GitHub |
+| Frontend | HTML5, CSS3, JavaScript (ES6) |
+| Base de Datos | Firebase Firestore |
+| Autenticación | Firebase Auth (Google Sign-in) |
+| Exportación | jsPDF (PDF real blanco y negro) |
+| Arquitectura | SPA – Single Page Application |
 
 ---
 
-### 🔗 Demo en vivo
-🌐 [https://eliezelapolinaris2017-lab.github.io/FINANZAS/](https://eliezelapolinaris2017-lab.github.io/FINANZAS/)
+## ☁️ Sincronización en la Nube
+
+**Financial App Web** integra Firebase para respaldo y acceso multiplataforma:
+
+- Guarda tus datos localmente y en Firestore  
+- Sincronización automática (autosync)  
+- Protección de datos por usuario autenticado  
+- Sin servidores externos ni intermediarios
 
 ---
 
-### 👨‍💻 Autor
-**Eliezel Apolinaris**  
-Desarrollador Front-End | Aplicaciones Web en la Nube  
-📧 *[eliezelapolinaris@icloud.com]*  
-🌐 [GitHub](https://github.com/eliezelapolinaris2017-lab)
+## 🔒 Seguridad
+
+- **PIN cifrado (SHA-256)** para acceso local  
+- **Inicio de sesión con Google** (Firebase Auth)  
+- **Datos locales seguros** mediante `localStorage`  
+- **Sin almacenamiento externo ni rastreo**
 
 ---
 
-### 🪪 Licencia
-Proyecto bajo licencia **MIT** — úsalo libremente con atribución al autor original.  
+## 🖨 Exportación a PDF
+
+La aplicación genera **PDF planos y profesionales**, no capturas.  
+Cada vista (gastos, ingresos, pagos, personales, reportes) puede exportarse individualmente o como **PDF general**.
+
+> Ideal para respaldos, reportes financieros o envío contable.
 
 ---
 
-> ✨ *“Finance Manager — an elegant cloud-powered app for effortless financial control.”*  
-> *(Una app elegante y potente para el control financiero en la nube.)*
+## 🧮 Módulos Incluidos
+
+| Módulo | Descripción |
+|--------|--------------|
+| 💳 Gastos Diarios | Registro de gastos, materiales y equipos |
+| 💵 Ingresos Diarios | Control de entradas de dinero por cliente o método |
+| 🧾 Pagos | Seguimiento de pagos pendientes y completados |
+| 🔁 Ordinarios | Gastos recurrentes automáticos |
+| 🧍 Personales | Gastos personales independientes |
+| 📊 Reportes | Balance total y comparativas por periodo |
+| 📚 Control de Gastos | Presupuestos por categoría |
+| ⚙️ Configuración | Logo, colores, moneda, PIN, respaldo |
+| 🔒 Login | Protección por PIN y acceso seguro |
+| ☁️ Nube | Conexión con Firebase para sincronización |
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square"/>
-  <img src="https://img.shields.io/github/last-commit/eliezelapolinaris2017-lab/FINANZAS?style=flat-square"/>
-  <img src="https://img.shields.io/github/languages/top/eliezelapolinaris2017-lab/FINANZAS?style=flat-square"/>
-</p>
+## 🧠 Propósito del Proyecto
+
+> “Brindar una herramienta financiera moderna, clara y elegante  
+> que permita a cualquier persona o negocio **entender, controlar y proyectar su dinero**.”
+
+Esta app fue diseñada para reemplazar hojas de cálculo y simplificar el control financiero diario,  
+manteniendo una experiencia visual atractiva y productiva.
+
+---
+
+## 💾 Funcionamiento Offline / Online
+
+- Los datos se guardan automáticamente en tu navegador.  
+- Puedes seguir usando la app sin conexión.  
+- Al reconectarte, puedes sincronizar con Firebase y mantener todo actualizado.
+
+---
+
+## 📂 Archivos Principales
