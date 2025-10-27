@@ -2,7 +2,7 @@
 
 <div align="center">
   
-🖤 **Una plataforma moderna de control financiero para personas y negocios.**  
+ **Una plataforma moderna de control financiero para personas y negocios.**  
 Gestiona tus ingresos, gastos, balances y reportes desde una app web elegante, rápida y segura.  
 
 </div>
