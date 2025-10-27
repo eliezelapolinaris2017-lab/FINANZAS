@@ -133,7 +133,7 @@ Integra **Firebase Authentication** y **Firestore Database** para guardar tus da
 ### 👨‍💻 Autor
 **Eliezel Apolinaris**  
 Desarrollador Front-End | Aplicaciones Web en la Nube  
-📧 *[Agrega tu correo]*  
+📧 *[eliezelapolinaris@icloud.com]*  
 🌐 [GitHub](https://github.com/eliezelapolinaris2017-lab)
 
 ---
