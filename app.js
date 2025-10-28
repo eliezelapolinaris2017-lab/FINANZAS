@@ -222,43 +222,120 @@ function wireExpenses(){
   $('#addExpense')?.addEventListener('click', ()=>{ if($('#expDate')) $('#expDate').value=todayStr(); $('#expAmount')?.focus(); });
 }
 
+
 /* ===================== Ingresos ===================== */
-function renderIncomes(){
-  const tbody=$('#incomesTable tbody'); if(!tbody) return; tbody.innerHTML='';
-  const from=$('#fIncFrom')?.value, to=$('#fIncTo')?.value; let total=0;
-  state.incomesDaily.filter(r=>inRange(r.date, from, to)).sort(byDateDesc).forEach(r=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML = `
-      <td>${r.date||''}</td><td>${r.client||''}</td><td>${r.method||''}</td>
-      <td>${fmt(r.amount)}</td>
-      <td class="row-actions">
-        <button class="btn-outline" data-edit="${r.id}">Editar</button>
-        <button class="btn-outline" data-del="${r.id}">Eliminar</button>
-      </td>`;
-    tbody.appendChild(tr); total+=Number(r.amount||0);
-  });
-  $('#incSumTotal') && ($('#incSumTotal').textContent = fmt(total));
-  $$('#incomesTable [data-del]').forEach(b=> b.onclick=()=>{ state.incomesDaily = state.incomesDaily.filter(x=>x.id!==b.dataset.del); save(); toast('Ingreso eliminado'); });
-  $$('#incomesTable [data-edit]').forEach(b=> b.onclick=()=> editIncome(b.dataset.edit));
+function renderIncomes() {
+const tbody = $('#incomesTable tbody');
+if (!tbody) return;
+tbody.innerHTML = '';
+
+const from = $('#fIncFrom')?.value;
+const to = $('#fIncTo')?.value;
+let total = 0;
+
+// Acumuladores por método
+const totalsByMethod = {
+'Efectivo': 0,
+'Tarjeta': 0,
+'Cheque': 0,
+'ATH Móvil': 0,
+'Transferencia': 0
+};
+
+state.incomesDaily
+.filter(r => inRange(r.date, from, to))
+.sort(byDateDesc)
+.forEach(r => {
+const tr = document.createElement('tr');
+tr.innerHTML = `
+<td>${r.date || ''}</td>
+<td>${r.client || ''}</td>
+<td>${r.method || ''}</td>
+<td>${fmt(r.amount)}</td>
+<td class="row-actions">
+<button class="btn-outline" data-edit="${r.id}">Editar</button>
+<button class="btn-outline" data-del="${r.id}">Eliminar</button>
+</td>`;
+tbody.appendChild(tr);
+
+total += Number(r.amount || 0);
+if (totalsByMethod[r.method] !== undefined)
+totalsByMethod[r.method] += Number(r.amount || 0);
+});
+
+// Mostrar total general
+$('#incSumTotal') && ($('#incSumTotal').textContent = fmt(total));
+
+// Mostrar totales por método
+const methodWrap = $('#incSumMethods');
+if (methodWrap) {
+methodWrap.innerHTML = '';
+Object.entries(totalsByMethod).forEach(([method, value]) => {
+const div = document.createElement('div');
+div.className = 'pill';
+div.textContent = `${method}: ${fmt(value)}`;
+methodWrap.appendChild(div);
+});
 }
-function editIncome(id){
-  const i=state.incomesDaily.findIndex(x=>x.id===id); if(i<0) return;
-  const r0=state.incomesDaily[i];
-  let r=ask(r0.date,'Fecha (YYYY-MM-DD)'); if(r.cancelled) return; r0.date=r.value||r0.date;
-  r=ask(r0.client,'Cliente/Origen'); if(r.cancelled) return; r0.client=r.value||r0.client;
-  r=ask(r0.method,'Método'); if(r.cancelled) return; r0.method=r.value||r0.method;
-  r=askNumber(r0.amount,'Monto'); if(r.cancelled) return; r0.amount=r.value;
-  save(); toast('Ingreso actualizado');
+
+// Eventos de edición y eliminación
+$$('#incomesTable [data-del]').forEach(b =>
+b.onclick = () => {
+state.incomesDaily = state.incomesDaily.filter(x => x.id !== b.dataset.del);
+save();
+toast('Ingreso eliminado');
+});
+$$('#incomesTable [data-edit]').forEach(b =>
+b.onclick = () => editIncome(b.dataset.edit));
 }
-function wireIncomes(){
-  $('#incomeForm')?.addEventListener('submit',(ev)=>{
-    ev.preventDefault();
-    const rec={ id:uid(), date:$('#incDate')?.value, client:$('#incClient')?.value, method:$('#incMethod')?.value, amount:Number($('#incAmount')?.value||0) };
-    if(!rec.date) return toast('Fecha requerida');
-    state.incomesDaily.push(rec); save(); toast('Ingreso guardado'); ev.target.reset();
-  });
-  $('#fIncApply')?.addEventListener('click', renderIncomes);
-  $('#addIncome')?.addEventListener('click', ()=>{ if($('#incDate')) $('#incDate').value=todayStr(); $('#incAmount')?.focus(); });
+
+function editIncome(id) {
+const i = state.incomesDaily.findIndex(x => x.id === id);
+if (i < 0) return;
+const r0 = state.incomesDaily[i];
+
+let r = ask(r0.date, 'Fecha (YYYY-MM-DD)');
+if (r.cancelled) return;
+r0.date = r.value || r0.date;
+
+r = ask(r0.client, 'Cliente/Origen');
+if (r.cancelled) return;
+r0.client = r.value || r0.client;
+
+r = ask(r0.method, 'Método');
+if (r.cancelled) return;
+r0.method = r.value || r0.method;
+
+r = askNumber(r0.amount, 'Monto');
+if (r.cancelled) return;
+r0.amount = r.value;
+
+save();
+toast('Ingreso actualizado');
+}
+
+function wireIncomes() {
+$('#incomeForm')?.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const rec = {
+id: uid(),
+date: $('#incDate')?.value,
+client: $('#incClient')?.value,
+method: $('#incMethod')?.value,
+amount: Number($('#incAmount')?.value || 0)
+};
+if (!rec.date) return toast('Fecha requerida');
+state.incomesDaily.push(rec);
+save();
+toast('Ingreso guardado');
+ev.target.reset();
+});
+
+$('#fIncApply')?.addEventListener('click', renderIncomes);
+$('#addIncome')?.addEventListener('click', () => {
+if ($('#incDate')) $('#incDate').value = todayStr();
+$('#incAmount')?.focus();
+});
 }
 
 /* ===================== Nómina (Pagos) ===================== */
